@@ -15,6 +15,4 @@ def verify_webhook_signature(webhook_data: WebhookPayload) -> bool:
         amount = int(amount)
 
     string = f"{account_id}{amount}{transaction_id}{user_id}{SECRET_KEY}"
-    print(string)
-    print(sha256(string.encode()).hexdigest())
     return signature == sha256(string.encode()).hexdigest()

@@ -14,7 +14,7 @@ from app.config import (
 from app.utils.security import get_password_hash
 
 
-async def create_main_admin(db: AsyncSession) -> None:
+async def create_main_admin(db: AsyncSession) -> Response:
     user = await db.execute(
         select(User).where(User.email == ADMIN_EMAIL)
     )

@@ -11,10 +11,11 @@ class WebhookPayload(BaseModel):
 
 
 class PaymentResponse(BaseModel):
-    transaction_id: UUID
+    transaction_id: int
     account_id: int
     user_id: int
     amount: float
+    signature: str
 
     class Config:
         from_attributes = True

@@ -3,18 +3,11 @@ from fastapi import (
     Depends
 )
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
 
 from app.database import get_db
-from app.models.user import User
-from app.utils.security import (
-    get_current_user,
-    get_current_admin
-)
 from app.schemas.payment import WebhookPayload
 from app.services.payment import (
-    process_payment,
-    get_user_payments
+    process_payment
 )
 
 

@@ -5,7 +5,10 @@ from fastapi import (
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
-from app.schemas.user import UserCreate
+from app.schemas.user import (
+    UserCreate,
+    UserResponse
+)
 from app.utils.security import get_password_hash
 from app.models.user import User
 
@@ -13,7 +16,7 @@ from app.models.user import User
 async def create_user(
     db: AsyncSession,
     user_data: UserCreate
-) -> User:
+) -> UserResponse:
     hashed_password = get_password_hash(user_data.password)
     user = User(
         email=user_data.email,
@@ -31,7 +34,7 @@ async def update_user(
     user_id: int,
     db: AsyncSession,
     user_data: UserCreate
-) -> User:
+) -> UserResponse:
     hashed_password = get_password_hash(user_data.password)
 
     user = await db.execute(select(User).where(User.id == user_id))
@@ -70,7 +73,7 @@ async def destroy_user(
 async def retrieve_user(
     user_id: int,
     db: AsyncSession
-) -> User:
+) -> UserResponse:
     user = await db.execute(select(User).where(User.id == user_id))
     user = user.scalar_one_or_none()
 
