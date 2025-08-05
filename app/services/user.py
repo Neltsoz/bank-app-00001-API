@@ -1,3 +1,5 @@
+from collections.abc import Sequence
+
 from fastapi import (
     HTTPException,
     status
@@ -83,3 +85,9 @@ async def retrieve_user(
         )
     
     return user
+
+
+async def get_all_users(
+    db: AsyncSession
+) -> Sequence[UserResponse]:
+    return (await db.execute(select(User))).scalars().all()

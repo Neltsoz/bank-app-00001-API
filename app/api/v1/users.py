@@ -12,7 +12,8 @@ from app.services.user import (
     create_user,
     retrieve_user,
     update_user,
-    destroy_user
+    destroy_user,
+    get_all_users
 )
 from app.services.account import get_user_accounts
 from app.services.payment import get_user_payments
@@ -46,7 +47,7 @@ async def get_users(
     db: AsyncSession = Depends(get_db),
     _: User = Depends(get_current_admin)
 ) -> Sequence[UserResponse]:
-    return (await db.execute(select(User))).scalars().all()
+    return await get_all_users(db)
 
 
 @router.get('/{user_id}')
