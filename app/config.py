@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-SECRET_KEY = 'gfdmhghif38yrf9ew0jkf32'
+SECRET_KEY = getenv('SECRET_KEY')
 
 JWT_SECRET = str(uuid4())
 JWT_ALGORITHM = 'HS256'
